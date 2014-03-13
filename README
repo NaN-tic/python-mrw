@@ -1,0 +1,51 @@
+MRW
+===
+
+Python API MRW carrier.
+
+Features
+--------
+
+- Services
+- Test connection
+- Create/Send shipments to MRW
+- Get label shipment in PDF
+
+Usage Examples
+--------------
+
+Example API in test.py file
+
+Services
+--------
+
+.. code-block:: python
+
+    from mrw.utils import services
+    services()
+
+Test connection
+---------------
+
+.. code-block:: python
+
+    with API(username, password, franchise, subscriber, department, debug) as mrw_api:
+        print mrw_api.test_connection()
+
+Create/send shipment to MRW
+---------------------------
+
+.. code-block:: python
+
+    with Picking(username, password, franchise, subscriber, department, debug) as picking_api:
+        data = {...}
+        reference, error = picking_api.create(data)
+
+Get label shipment in PDF
+-------------------------
+
+.. code-block:: python
+
+    with Picking(username, password, franchise, subscriber, department, debug) as picking_api:
+        data = {...}
+        label = picking_api.label(data)
