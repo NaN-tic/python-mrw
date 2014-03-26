@@ -60,6 +60,8 @@ class Picking(API):
             'codigo_servicio': data.get('codigo_servicio', '0300'),
             'bultos': data.get('bultos', '1'),
             'peso': data.get('peso', '0.1'),
+            'reembolso': data.get('reembolso', ''), #O: Origen, D: Destino
+            'importe_reembolso': data.get('importe_reembolso', ''),
             }
 
         xml = tmpl.generate(**vals).render()

@@ -39,6 +39,8 @@ with Picking(username, password, franchise, subscriber, department, debug) as pi
     data['codigo_servicio'] = '0800'
     #~ data['bultos'] = ''
     #~ data['peso'] = ''
+    data['reembolso'] = 'O'
+    data['importe_reembolso'] = '12,45'
 
     reference, error = picking_api.create(data)
     print reference

@@ -35,6 +35,8 @@
                <mrw:CodigoServicio>${codigo_servicio}</mrw:CodigoServicio>
                <mrw:NumeroBultos>${bultos}</mrw:NumeroBultos>
                <mrw:Peso>${peso}</mrw:Peso>
+               <mrw:Reembolso>${reembolso}</mrw:Reembolso>
+               <mrw:ImporteReembolso>${importe_reembolso}</mrw:ImporteReembolso>
             </mrw:DatosServicio>
          </mrw:request>
       </mrw:TransmEnvio>
