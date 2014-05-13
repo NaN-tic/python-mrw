@@ -10,7 +10,7 @@ def mrw_url(debug=False):
     if debug:
         return 'http://sagec-test.mrw.es/MRWEnvio.asmx'
     else:
-        return 'http://sagec.mrw.es/MRWEnvio.asmx'
+        return 'https://sagec.mrw.es/MRWEnvio.asmx'
         
 def services():
     services = {
