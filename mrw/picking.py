@@ -59,7 +59,7 @@ class Picking(API):
             'referencia': data.get('referencia', ''),
             'codigo_servicio': data.get('codigo_servicio', '0300'),
             'bultos': data.get('bultos', '1'),
-            'peso': data.get('peso', '0.1'),
+            'peso': data.get('peso', '1'), # weight is integer value, not float
             'reembolso': data.get('reembolso', ''), #O: Origen, D: Destino
             'importe_reembolso': data.get('importe_reembolso', ''),
             }
