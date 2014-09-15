@@ -4,3 +4,4 @@ include README
 include CHANGELOG
 include INSTALL
 include mrw/*
+include mrw/template/*
