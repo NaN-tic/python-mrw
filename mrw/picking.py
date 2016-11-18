@@ -66,6 +66,9 @@ class Picking(API):
 
         xml = tmpl.generate(**vals).render()
         result = self.connect(xml)
+        if not result:
+            return reference, 'timed out'
+
         dom = parseString(result)
 
         Mensaje = dom.getElementsByTagName('Mensaje')
@@ -108,6 +111,9 @@ class Picking(API):
 
         xml = tmpl.generate(**vals).render()
         result = self.connect(xml)
+        if not result:
+            return
+
         dom = parseString(result)
 
         EtiquetaFile = dom.getElementsByTagName('EtiquetaFile')

@@ -4,6 +4,7 @@ from mrw.utils import mrw_url
 from xml.dom.minidom import parseString
 import urllib2
 import os
+import socket
 import datetime
 import genshi
 import genshi.template
@@ -24,9 +25,11 @@ class API(object):
         'franchise',
         'subscriber',
         'department',
+        'timeout',
     )
 
-    def __init__(self, username, password, franchise, subscriber, department, debug=False):
+    def __init__(self, username, password, franchise, subscriber, department,
+            timeout=None, debug=False):
         """
         This is the Base API class which other APIs have to subclass. By
         default the inherited classes also get the properties of this
@@ -44,6 +47,7 @@ class API(object):
         :param franchise: Code franchise (franquicia)
         :param subscriber: Code subscriber (abonado)
         :param department: Code departament
+        :param timeout: int number of seconds to lost connection.
         """
         self.url = mrw_url(debug)
         self.username = username
@@ -51,6 +55,7 @@ class API(object):
         self.franchise = franchise
         self.subscriber = subscriber
         self.department = department
+        self.timeout = timeout
 
     def __enter__(self):
         return self
@@ -63,7 +68,7 @@ class API(object):
         Connect to the Webservices and return XML data from mrw
 
         :param xml: XML data.
-        
+
         Return XML object
         """
         headers = {
@@ -72,8 +77,13 @@ class API(object):
             'Content-Length': len(xml),
             }
         request = urllib2.Request(self.url, xml, headers)
-        response = urllib2.urlopen(request)
-        return response.read()
+        try:
+            response = urllib2.urlopen(request, timeout=self.timeout)
+            return response.read()
+        except socket.timeout as err:
+            return
+        except socket.error as err:
+            return
 
     def test_connection(self):
         """
@@ -99,6 +109,9 @@ class API(object):
             }
         xml = tmpl.generate(**vals).render()
         result = self.connect(xml)
+        if not result:
+            return 'Error connection to MRW'
+
         dom = parseString(result)
 
         #Get message connection

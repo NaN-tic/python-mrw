@@ -12,11 +12,11 @@ print "MRW services"
 services = services()
 print services
 
-with API(username, password, franchise, subscriber, department, debug) as mrw_api:
+with API(username, password, franchise, subscriber, department, debug=debug) as mrw_api:
     print "Test connection"
     print mrw_api.test_connection()
 
-with Picking(username, password, franchise, subscriber, department, debug) as picking_api:
+with Picking(username, password, franchise, subscriber, department, debug=debug) as picking_api:
     print "Send a new shipment"
 
     data = {}
@@ -66,4 +66,3 @@ with Picking(username, password, franchise, subscriber, department, debug) as pi
         print "Generated PDF label in %s" % filename
     else:
         print "Error get pdf file"
-
