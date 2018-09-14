@@ -2,7 +2,7 @@
 #this repository contains the full copyright notices and license terms.
 from mrw.utils import mrw_url
 from xml.dom.minidom import parseString
-import urllib2
+from urllib import request
 import os
 import socket
 import datetime
@@ -76,9 +76,9 @@ class API(object):
             'Content-Type': 'text/xml; charset=utf-8',
             'Content-Length': len(xml),
             }
-        request = urllib2.Request(self.url, xml, headers)
+        rqst = request.Request(self.url, xml, headers)
         try:
-            response = urllib2.urlopen(request, timeout=self.timeout)
+            response = request.urlopen(rqst, timeout=self.timeout)
             return response.read()
         except socket.timeout as err:
             return
