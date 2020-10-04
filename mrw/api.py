@@ -76,7 +76,7 @@ class API(object):
             'Content-Type': 'text/xml; charset=utf-8',
             'Content-Length': len(xml),
             }
-        rqst = request.Request(self.url, xml, headers)
+        rqst = request.Request(self.url, bytes(xml.encode('utf-8')), headers)
         try:
             response = request.urlopen(rqst, timeout=self.timeout)
             return response.read()

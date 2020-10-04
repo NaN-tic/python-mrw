@@ -3,21 +3,21 @@ password = ''
 franchise = ''
 subscriber = ''
 department = ''
-debug = True
+debug = False
 
 from mrw.picking import *
 from mrw.utils import services
 
-print "MRW services"
+print("MRW services")
 services = services()
-print services
+print(services)
 
 with API(username, password, franchise, subscriber, department, debug=debug) as mrw_api:
-    print "Test connection"
-    print mrw_api.test_connection()
+    print("Test connection")
+    print(mrw_api.test_connection())
 
 with Picking(username, password, franchise, subscriber, department, debug=debug) as picking_api:
-    print "Send a new shipment"
+    print("Send a new shipment")
 
     data = {}
     #~ data['codigo_direccion'] = ''
@@ -43,12 +43,12 @@ with Picking(username, password, franchise, subscriber, department, debug=debug)
     data['importe_reembolso'] = '12,45'
 
     reference, error = picking_api.create(data)
-    print reference
+    print(reference)
 
     if error:
-        print error
+        print(error)
 
-    print "Get PDF label"
+    print("Get PDF label")
     data = {}
     data['numero'] = reference
     #~ data['separador_numero'] = ''
@@ -63,6 +63,6 @@ with Picking(username, password, franchise, subscriber, department, debug=debug)
         filename = '/tmp/mrw-%s-label.pdf' % reference
         with open(filename,"wb") as f:
             f.write(label)
-        print "Generated PDF label in %s" % filename
+        print("Generated PDF label in %s" % filename)
     else:
-        print "Error get pdf file"
+        print("Error get pdf file")
