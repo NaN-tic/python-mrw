@@ -2,7 +2,7 @@
 #this repository contains the full copyright notices and license terms.
 from mrw.utils import mrw_url
 from xml.dom.minidom import parseString
-from urllib import request
+import requests
 import os
 import socket
 import datetime
@@ -74,12 +74,16 @@ class API(object):
         headers = {
             'Content-Type': 'application/soap+xml; charset=utf-8',
             'Content-Type': 'text/xml; charset=utf-8',
-            'Content-Length': len(xml),
+            'Content-Length': str(len(xml)),
             }
-        rqst = request.Request(self.url, bytes(xml.encode('utf-8')), headers)
+
         try:
-            response = request.urlopen(rqst, timeout=self.timeout)
-            return response.read()
+            rqst = requests.post(self.url, data=bytes(xml.encode('utf-8')), headers=headers)
+        except Exception as err:
+            return
+        try:
+            response = rqst.content
+            return response
         except socket.timeout as err:
             return
         except socket.error as err:
